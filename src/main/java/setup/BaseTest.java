@@ -10,31 +10,42 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-public class BaseTest implements IDriver {
+public class BaseTest implements DriverInterface {
 
     private static AppiumDriver appiumDriver; // singleton
-    IPageObject po;
+    private static PageObjectInterface pageObject;
+    //PageObjectInterface pageObject;   //the getter method invoked in simpleNativeTest() will return null and cause NPE if this field is not static
 
-    @Override
+    @Override    //getters
     public AppiumDriver getDriver() { return appiumDriver; }
-
-    public IPageObject getPo() {
-        return po;
+    public PageObjectInterface getPageObject() {
+        return pageObject;
     }
 
     @Parameters({"platformName","appType","deviceName","browserName","app"})
     @BeforeSuite(alwaysRun = true)
-    public void setUp(String platformName, String appType, String deviceName, @Optional("") String browserName, @Optional("") String app) throws Exception {
+    public void setup(String platformName, String appType, String deviceName, @Optional("") String browserName, @Optional("") String app) throws Exception {
         System.out.println("Before: app type - "+appType);
         setAppiumDriver(platformName, deviceName, browserName, app);
         setPageObject(appType, appiumDriver);
 
+        System.out.println("Checking the getter method from BaseTest");
+        String message2 = (getPageObject() == null)?
+                ("\n!!! getPageObject() invoked from setup() returned null !!!\n")
+                :("[OK] getPageObject() invoked from setup() returned an object");
+        System.out.println(message2);
     }
 
     @AfterSuite(alwaysRun = true)
-    public void tearDown() throws Exception {
+    public void teardown() throws Exception {
         System.out.println("After");
         appiumDriver.closeApp();
+
+        System.out.println("Checking the getter method from BaseTest");
+        String message2 = (getPageObject() == null)?
+                ("\n!!! getPageObject() invoked from teardown() returned null !!!\n")
+                :("[OK] getPageObject() invoked from teardown() returned an object");
+        System.out.println(message2);
     }
 
     private void setAppiumDriver(String platformName, String deviceName, String browserName, String app){
@@ -60,8 +71,8 @@ public class BaseTest implements IDriver {
     }
 
     private void setPageObject(String appType, AppiumDriver appiumDriver) throws Exception {
-        po = new PageObject(appType, appiumDriver);
+        System.out.println("Setting page object");
+        pageObject = new PageObject(appType, appiumDriver);
     }
-
 
 }

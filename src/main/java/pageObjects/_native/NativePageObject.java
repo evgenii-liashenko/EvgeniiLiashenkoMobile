@@ -1,4 +1,4 @@
-package pageObjects;
+package pageObjects._native;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
@@ -13,7 +13,6 @@ public class NativePageObject  {
 
     public NativePageObject(AppiumDriver appiumDriver) {
         PageFactory.initElements( new AppiumFieldDecorator(appiumDriver), this);
+        //System.out.println("\n\nPage factory got executed");
     }
-
-
 }
