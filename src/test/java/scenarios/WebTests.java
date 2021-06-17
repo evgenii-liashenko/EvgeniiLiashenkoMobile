@@ -4,15 +4,16 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
-import pageObjects.web.GoogleMobileHomePage;
-import setup.BaseTest;
+import pageobjects.google.GoogleMobileWebsite;
+import utils.DataProviders;
+import utils.GoogleTestDataSet;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 public class WebTests extends BaseTest {
 
-    //@Test(groups = {"web"}, description = "Make sure that we've opened IANA homepage")
+    @Test(groups = {"web"}, description = "Make sure that we've opened IANA homepage", enabled = false)
     public void simpleWebTest() throws InterruptedException {
         getDriver().get("http://iana.org"); // open IANA homepage
 
@@ -28,22 +29,20 @@ public class WebTests extends BaseTest {
         System.out.println("Site opening done");
     }
 
-    @Test(groups = {"web"}, description = "Googling 'EPAM' and checking the results")
-    public void googleSearchTest() throws NoSuchFieldException, IllegalAccessException, InstantiationException {
-        GoogleMobileHomePage googleMobileHomePage = new GoogleMobileHomePage(getDriver());
-
+    @Test(dataProvider = "googleDataProvider", dataProviderClass = DataProviders.class,
+            groups = {"web"}, description = "Googling 'EPAM' and checking the results")
+    public void googleSearchTest(GoogleTestDataSet testData) throws NoSuchFieldException, IllegalAccessException, InstantiationException {
         //Opening the page and performing a search
-        getDriver().get(GoogleMobileHomePage.getURL());
-        googleMobileHomePage.getSearchField().sendKeys("EPAM" + "\n");
-        //getPageObject().getElement("searchField").sendKeys("EPAM" + "\n"); //Broken. NoSuchField exception
+        GoogleMobileWebsite googleSite = new GoogleMobileWebsite(getDriver());
+        getDriver().get(googleSite.homePage.URL);
+        googleSite.homePage.searchField.sendKeys(testData.getQuery() + "\n");
 
         // Making sure that page has been loaded completely
         new WebDriverWait(getDriver(), 10).until(
-                wd -> ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete")
-        );
+                wd -> ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
 
         //Checking that the search has returned results
-        assertThat(googleMobileHomePage.getSearchResults().size(), is(not(0)));
+        assertThat(googleSite.resultsPage.searchResults.size(), is(not(0)));
         System.out.println("Google search test completed");
     }
 

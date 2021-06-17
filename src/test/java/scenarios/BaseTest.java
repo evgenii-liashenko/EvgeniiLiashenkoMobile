@@ -1,9 +1,11 @@
-package setup;
+package scenarios;
 
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.*;
-import pageObjects.PageObject;
+import pageobjects.PageObject;
+import setup.DriverInterface;
+import setup.PageObjectInterface;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -13,8 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class BaseTest implements DriverInterface {
 
     private static AppiumDriver appiumDriver; // singleton
-    private static PageObjectInterface pageObject;
-    //PageObjectInterface pageObject;   //the getter method invoked in simpleNativeTest() will return null and cause NPE if this field is not static
+    PageObjectInterface pageObject;
 
     @Override    //getters
     public AppiumDriver getDriver() { return appiumDriver; }
@@ -28,24 +29,12 @@ public class BaseTest implements DriverInterface {
         System.out.println("Before: app type - "+appType);
         setAppiumDriver(platformName, deviceName, browserName, app);
         setPageObject(appType, appiumDriver);
-
-        System.out.println("Checking the getter method from BaseTest");
-        String message2 = (getPageObject() == null)?
-                ("\n!!! getPageObject() invoked from setup() returned null !!!\n")
-                :("[OK] getPageObject() invoked from setup() returned an object");
-        System.out.println(message2);
     }
 
     @AfterSuite(alwaysRun = true)
     public void teardown() throws Exception {
         System.out.println("After");
         appiumDriver.closeApp();
-
-        System.out.println("Checking the getter method from BaseTest");
-        String message2 = (getPageObject() == null)?
-                ("\n!!! getPageObject() invoked from teardown() returned null !!!\n")
-                :("[OK] getPageObject() invoked from teardown() returned an object");
-        System.out.println(message2);
     }
 
     private void setAppiumDriver(String platformName, String deviceName, String browserName, String app){

@@ -1,9 +1,9 @@
-package pageObjects;
+package pageobjects;
 
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebElement;
-import pageObjects._native.NativePageObject;
-import pageObjects.web.WebPageObject;
+import pageobjects.samples.NativePageObject;
+import pageobjects.samples.WebPageObject;
 import setup.PageObjectInterface;
 
 import java.lang.reflect.Field;

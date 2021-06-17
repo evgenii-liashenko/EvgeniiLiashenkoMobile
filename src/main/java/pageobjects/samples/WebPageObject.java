@@ -1,4 +1,4 @@
-package pageObjects.web;
+package pageobjects.samples;
 
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.support.PageFactory;
