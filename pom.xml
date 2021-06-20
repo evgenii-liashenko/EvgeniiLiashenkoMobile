@@ -43,7 +43,7 @@
                         <suiteXmlFile>${suite.file}</suiteXmlFile>
                     </suiteXmlFiles>
                     <systemPropertyVariables>
-                        <ts.appium>http://localhost:4723/wd/hub</ts.appium>
+                        <ts.appium>${appium.server.url}</ts.appium>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
@@ -60,25 +60,59 @@
 
     <profiles>
         <profile>
-            <id>native</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
+            <id>androidLocalNative</id>
             <properties>
-                <suite.file>src/test/resources/nativeTNG.xml</suite.file>
+                <suite.file>src/test/resources/androidLocalNativeTNG.xml</suite.file>
+                <appium.server.url>http://localhost:4723/wd/hub</appium.server.url>
+            </properties>
+        </profile>
+        <profile>
+            <id>androidLocalWeb</id>
+            <properties>
+                <suite.file>./src/test/resources/androidLocalWebTNG.xml</suite.file>
+                <appium.server.url>http://localhost:4723/wd/hub</appium.server.url>
             </properties>
         </profile>
 
         <profile>
-            <id>web</id>
+            <id>androidCloudNative</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <suite.file>./src/test/resources/webTNG.xml</suite.file>
+                <suite.file>src/test/resources/androidCloudNativeTNG.xml</suite.file>
+                <appium.server.url>https://EPM-TSTF:${token}@mobilecloud.epam.com/wd/hub</appium.server.url>
+                <token>eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJMR0xsSnVPQmxyUHF3Wi1JaTQ1VG1KQnVfakdVNnRLV3hKdm1JQ0w3cDU4In0.eyJleHAiOjE2MjY2ODE1OTYsImlhdCI6MTYyNDA4OTU5NiwianRpIjoiOTkwYzY3YzQtNWU5MC00MzMzLWFhMTAtMDc2ZWZjYzkwNDA1IiwiaXNzIjoiaHR0cHM6Ly9sb2dpbi5lcG0tdHN0Zi5wcm9qZWN0cy5lcGFtLmNvbS9hdXRoL3JlYWxtcy9wcm9kdWN0aW9uIiwiYXVkIjoibW9iaWxlY2xvdWQiLCJzdWIiOiJmYmNiNTFmOS0zNTNlLTQxODktYThhYS02NzA4NjFkZTY3MTMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJtb2JpbGVjbG91ZCIsInNlc3Npb25fc3RhdGUiOiI5NTNhZWQ0OC0zZDA0LTRlOGEtYjEwNS0yOTQ5MjY2ODBiNGIiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImNsb3VkX3VzZXIiLCJvZmZsaW5lX2FjY2VzcyJdfSwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBvZmZsaW5lX2FjY2VzcyBlbWFpbCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJncm91cF9pZCI6IjBiY2RhNDFmLWUwZDgtNGZhZi04NjFhLTcxMjFiMDg1ZWM2NyIsIm5hbWUiOiJFdmdlbmlpIExpYXNoZW5rbyIsInByZWZlcnJlZF91c2VybmFtZSI6ImV2Z2VuaWlfbGlhc2hlbmtvQGVwYW0uY29tIiwiZ2l2ZW5fbmFtZSI6IkV2Z2VuaWkiLCJmYW1pbHlfbmFtZSI6IkxpYXNoZW5rbyIsImVtYWlsIjoiZXZnZW5paV9saWFzaGVua29AZXBhbS5jb20ifQ.pmB4B75AqXyR3HZc6yRqc_ps-8mXYnFoP0Tu6D9HhXjv5xHKgzPcP1gRvj0B_S0kvjapgVZraY5Az_RVH1sPvUSPBKPQUICVOgIyG7q8MvAld3vBFytDXyLAiDbqSTCoejD2eHwgIIsD8WM4tx-4I3nzAdOZE8H87UfA9wG7U_Mq9JAWQa1Mgaj-pjPQ68CBVk8vwNA2PS3cQFnjKUpTFVPl4OH5q24GMCg2Zjxf4joZu_EYhUbRjsE_w43cuuvEU7q1a1PLm14jFbD14nf_YsrD0ToYW3XGNTHuF_wBFxFls_e8x_DfJiRY7s8IXuCGsJHiG4hOvmTBZ2nnovOsMA</token>
             </properties>
         </profile>
+
+        <profile>
+            <id>androidCloudWeb</id>
+            <properties>
+                <suite.file>./src/test/resources/androidCloudWebTNG.xml</suite.file>
+                <appium.server.url>https://EPM-TSTF:${token}@mobilecloud.epam.com/wd/hub</appium.server.url>
+                <token>eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJMR0xsSnVPQmxyUHF3Wi1JaTQ1VG1KQnVfakdVNnRLV3hKdm1JQ0w3cDU4In0.eyJleHAiOjE2MjY2ODE1OTYsImlhdCI6MTYyNDA4OTU5NiwianRpIjoiOTkwYzY3YzQtNWU5MC00MzMzLWFhMTAtMDc2ZWZjYzkwNDA1IiwiaXNzIjoiaHR0cHM6Ly9sb2dpbi5lcG0tdHN0Zi5wcm9qZWN0cy5lcGFtLmNvbS9hdXRoL3JlYWxtcy9wcm9kdWN0aW9uIiwiYXVkIjoibW9iaWxlY2xvdWQiLCJzdWIiOiJmYmNiNTFmOS0zNTNlLTQxODktYThhYS02NzA4NjFkZTY3MTMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJtb2JpbGVjbG91ZCIsInNlc3Npb25fc3RhdGUiOiI5NTNhZWQ0OC0zZDA0LTRlOGEtYjEwNS0yOTQ5MjY2ODBiNGIiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImNsb3VkX3VzZXIiLCJvZmZsaW5lX2FjY2VzcyJdfSwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBvZmZsaW5lX2FjY2VzcyBlbWFpbCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJncm91cF9pZCI6IjBiY2RhNDFmLWUwZDgtNGZhZi04NjFhLTcxMjFiMDg1ZWM2NyIsIm5hbWUiOiJFdmdlbmlpIExpYXNoZW5rbyIsInByZWZlcnJlZF91c2VybmFtZSI6ImV2Z2VuaWlfbGlhc2hlbmtvQGVwYW0uY29tIiwiZ2l2ZW5fbmFtZSI6IkV2Z2VuaWkiLCJmYW1pbHlfbmFtZSI6IkxpYXNoZW5rbyIsImVtYWlsIjoiZXZnZW5paV9saWFzaGVua29AZXBhbS5jb20ifQ.pmB4B75AqXyR3HZc6yRqc_ps-8mXYnFoP0Tu6D9HhXjv5xHKgzPcP1gRvj0B_S0kvjapgVZraY5Az_RVH1sPvUSPBKPQUICVOgIyG7q8MvAld3vBFytDXyLAiDbqSTCoejD2eHwgIIsD8WM4tx-4I3nzAdOZE8H87UfA9wG7U_Mq9JAWQa1Mgaj-pjPQ68CBVk8vwNA2PS3cQFnjKUpTFVPl4OH5q24GMCg2Zjxf4joZu_EYhUbRjsE_w43cuuvEU7q1a1PLm14jFbD14nf_YsrD0ToYW3XGNTHuF_wBFxFls_e8x_DfJiRY7s8IXuCGsJHiG4hOvmTBZ2nnovOsMA</token>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>iOSCloudWeb</id>
+            <properties>
+                <suite.file>./src/test/resources/iosCloudWebTNG.xml</suite.file>
+                <appium.server.url>https://EPM-TSTF:${token}@mobilecloud.epam.com/wd/hub</appium.server.url>
+                <token>eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJMR0xsSnVPQmxyUHF3Wi1JaTQ1VG1KQnVfakdVNnRLV3hKdm1JQ0w3cDU4In0.eyJleHAiOjE2MjY2ODE1OTYsImlhdCI6MTYyNDA4OTU5NiwianRpIjoiOTkwYzY3YzQtNWU5MC00MzMzLWFhMTAtMDc2ZWZjYzkwNDA1IiwiaXNzIjoiaHR0cHM6Ly9sb2dpbi5lcG0tdHN0Zi5wcm9qZWN0cy5lcGFtLmNvbS9hdXRoL3JlYWxtcy9wcm9kdWN0aW9uIiwiYXVkIjoibW9iaWxlY2xvdWQiLCJzdWIiOiJmYmNiNTFmOS0zNTNlLTQxODktYThhYS02NzA4NjFkZTY3MTMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJtb2JpbGVjbG91ZCIsInNlc3Npb25fc3RhdGUiOiI5NTNhZWQ0OC0zZDA0LTRlOGEtYjEwNS0yOTQ5MjY2ODBiNGIiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImNsb3VkX3VzZXIiLCJvZmZsaW5lX2FjY2VzcyJdfSwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBvZmZsaW5lX2FjY2VzcyBlbWFpbCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJncm91cF9pZCI6IjBiY2RhNDFmLWUwZDgtNGZhZi04NjFhLTcxMjFiMDg1ZWM2NyIsIm5hbWUiOiJFdmdlbmlpIExpYXNoZW5rbyIsInByZWZlcnJlZF91c2VybmFtZSI6ImV2Z2VuaWlfbGlhc2hlbmtvQGVwYW0uY29tIiwiZ2l2ZW5fbmFtZSI6IkV2Z2VuaWkiLCJmYW1pbHlfbmFtZSI6IkxpYXNoZW5rbyIsImVtYWlsIjoiZXZnZW5paV9saWFzaGVua29AZXBhbS5jb20ifQ.pmB4B75AqXyR3HZc6yRqc_ps-8mXYnFoP0Tu6D9HhXjv5xHKgzPcP1gRvj0B_S0kvjapgVZraY5Az_RVH1sPvUSPBKPQUICVOgIyG7q8MvAld3vBFytDXyLAiDbqSTCoejD2eHwgIIsD8WM4tx-4I3nzAdOZE8H87UfA9wG7U_Mq9JAWQa1Mgaj-pjPQ68CBVk8vwNA2PS3cQFnjKUpTFVPl4OH5q24GMCg2Zjxf4joZu_EYhUbRjsE_w43cuuvEU7q1a1PLm14jFbD14nf_YsrD0ToYW3XGNTHuF_wBFxFls_e8x_DfJiRY7s8IXuCGsJHiG4hOvmTBZ2nnovOsMA</token>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>iOSCloudNative</id>
+            <properties>
+                <suite.file>./src/test/resources/iosCloudNativeTNG.xml</suite.file>
+                <appium.server.url>https://EPM-TSTF:${token}@mobilecloud.epam.com/wd/hub</appium.server.url>
+                <token>eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJMR0xsSnVPQmxyUHF3Wi1JaTQ1VG1KQnVfakdVNnRLV3hKdm1JQ0w3cDU4In0.eyJleHAiOjE2MjY2ODE1OTYsImlhdCI6MTYyNDA4OTU5NiwianRpIjoiOTkwYzY3YzQtNWU5MC00MzMzLWFhMTAtMDc2ZWZjYzkwNDA1IiwiaXNzIjoiaHR0cHM6Ly9sb2dpbi5lcG0tdHN0Zi5wcm9qZWN0cy5lcGFtLmNvbS9hdXRoL3JlYWxtcy9wcm9kdWN0aW9uIiwiYXVkIjoibW9iaWxlY2xvdWQiLCJzdWIiOiJmYmNiNTFmOS0zNTNlLTQxODktYThhYS02NzA4NjFkZTY3MTMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJtb2JpbGVjbG91ZCIsInNlc3Npb25fc3RhdGUiOiI5NTNhZWQ0OC0zZDA0LTRlOGEtYjEwNS0yOTQ5MjY2ODBiNGIiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImNsb3VkX3VzZXIiLCJvZmZsaW5lX2FjY2VzcyJdfSwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBvZmZsaW5lX2FjY2VzcyBlbWFpbCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJncm91cF9pZCI6IjBiY2RhNDFmLWUwZDgtNGZhZi04NjFhLTcxMjFiMDg1ZWM2NyIsIm5hbWUiOiJFdmdlbmlpIExpYXNoZW5rbyIsInByZWZlcnJlZF91c2VybmFtZSI6ImV2Z2VuaWlfbGlhc2hlbmtvQGVwYW0uY29tIiwiZ2l2ZW5fbmFtZSI6IkV2Z2VuaWkiLCJmYW1pbHlfbmFtZSI6IkxpYXNoZW5rbyIsImVtYWlsIjoiZXZnZW5paV9saWFzaGVua29AZXBhbS5jb20ifQ.pmB4B75AqXyR3HZc6yRqc_ps-8mXYnFoP0Tu6D9HhXjv5xHKgzPcP1gRvj0B_S0kvjapgVZraY5Az_RVH1sPvUSPBKPQUICVOgIyG7q8MvAld3vBFytDXyLAiDbqSTCoejD2eHwgIIsD8WM4tx-4I3nzAdOZE8H87UfA9wG7U_Mq9JAWQa1Mgaj-pjPQ68CBVk8vwNA2PS3cQFnjKUpTFVPl4OH5q24GMCg2Zjxf4joZu_EYhUbRjsE_w43cuuvEU7q1a1PLm14jFbD14nf_YsrD0ToYW3XGNTHuF_wBFxFls_e8x_DfJiRY7s8IXuCGsJHiG4hOvmTBZ2nnovOsMA</token>
+            </properties>
+        </profile>
+
+
     </profiles>
-
-
 </project>

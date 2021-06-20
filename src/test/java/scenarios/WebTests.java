@@ -30,14 +30,14 @@ public class WebTests extends BaseTest {
     }
 
     @Test(dataProvider = "googleDataProvider", dataProviderClass = DataProviders.class,
-            groups = {"web"}, description = "Googling 'EPAM' and checking the results")
+            groups = {"web"}, description = "Googling 'EPAM' and checking the results", enabled = true)
     public void googleSearchTest(GoogleTestDataSet testData) throws NoSuchFieldException, IllegalAccessException, InstantiationException {
         //Opening the page and performing a search
         GoogleMobileWebsite googleSite = new GoogleMobileWebsite(getDriver());
         getDriver().get(googleSite.homePage.URL);
         googleSite.homePage.searchField.sendKeys(testData.getQuery() + "\n");
 
-        // Making sure that page has been loaded completely
+        // Making sure that page has been loaded completely     //TODO make it work on iOS
         new WebDriverWait(getDriver(), 10).until(
                 wd -> ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
 

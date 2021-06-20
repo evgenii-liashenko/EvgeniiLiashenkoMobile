@@ -10,6 +10,7 @@ import pageobjects.epamapp.pages.StartPage;
 public class EpamApp {
 
 
+
     public RegistrationPage registrationPage;
     public StartPage startPage;
     public BudgetActivityPage budgetActivityPage;

@@ -19,7 +19,9 @@ public class DataProviders {
         appTestDataSet1.setPassword(passwords().type(MEDIUM).get());
         appTestDataSet1.setUserName(names().type(FIRST_NAME).get());
 
-        appTestDataSet1.setExpectedTitle("BudgetActivity");
+        appTestDataSet1.setExpectedTitle("BudgetActivity");     //Android
+        //appTestDataSet1.setExpectedTitle("Budget");     //iOS
+
         return new Object[][]{{appTestDataSet1}};
     }
 

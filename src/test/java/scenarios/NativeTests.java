@@ -28,7 +28,7 @@ public class NativeTests extends BaseTest {
         app.startPage.authotizeUser(testData.getEmail(), testData.getPassword());
 
         //Verifying that BudgetActivity page opened
-        assertThat(app.budgetActivityPage.getTitle(), is(testData.getExpectedTitle()));
+        assertThat("Incorrect page title", app.budgetActivityPage.getTitle(), is(testData.getExpectedTitle()));
         System.out.println("EPAM App test completed");
     }
 
