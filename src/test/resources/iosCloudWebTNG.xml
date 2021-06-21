@@ -2,7 +2,7 @@
 <suite name="EPAM mobile cloud web testing Suite">
     <parameter name="appType" value="web"></parameter>
 <!--    <parameter name="deviceName" value="emulator-5554"></parameter>-->
-    <parameter name="udid" value="00008101-0000141E3E78001E"></parameter>
+    <parameter name="udid" value="00008030-001C54420C09802E"></parameter>
     <parameter name="platformName" value="iOS"></parameter>
     <parameter name="browserName" value="Safari"></parameter>
     <test name="Cloud web tests on iOS">
