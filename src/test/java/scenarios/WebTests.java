@@ -1,12 +1,16 @@
 package scenarios;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import pageobjects.google.GoogleMobileWebsite;
 import utils.DataProviders;
 import utils.GoogleTestDataSet;
+
+import java.time.Duration;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -35,16 +39,31 @@ public class WebTests extends BaseTest {
         //Opening the page and performing a search
         GoogleMobileWebsite googleSite = new GoogleMobileWebsite(getDriver());
         getDriver().get(googleSite.homePage.URL);
-        googleSite.homePage.searchField.sendKeys(testData.getQuery() + "\n");
 
-        // Making sure that page has been loaded completely     //TODO make it work on iOS
+        //Each platform requires the query to be submitted in a different way
+        String platform = getDriver().getCapabilities().getCapability("platformName").toString();
+        switch (platform) {
+            case "Android": {
+                googleSite.homePage.searchField.sendKeys(testData.getQuery() + "\n");
+            }
+            break;
+            case "iOS": {
+                googleSite.homePage.searchField.sendKeys(testData.getQuery());
+                googleSite.homePage.searchField.submit();
+            }
+            break;
+            default:
+                System.out.println("Cannot submit search query on platform " + platform);
+                break;
+        }
+
+        // Making sure that page has been loaded completely
         new WebDriverWait(getDriver(), 10).until(
                 wd -> ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
 
         //Checking that the search has returned results
-        assertThat(googleSite.resultsPage.searchResults.size(), is(not(0)));
-        System.out.println("Google search test completed");
+        assertThat("No search results are obtained", googleSite.resultsPage.searchResults.size(), is(not(0)));
+        System.out.println("Google search test on " + platform + " for query " +  "\"" + testData.getQuery() + "\""+" completed");
     }
-
 
 }
