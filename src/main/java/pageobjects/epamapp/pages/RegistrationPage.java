@@ -42,7 +42,8 @@ public class RegistrationPage {
         passwordConfirmation.sendKeys(passwordConfirmationStr);
 
         registerButton.click();
-        //registerButton.click();     //Potential bug found: iOS app requires double pressing the button to finish the registration
+        //registerButton.click();     //Potential bug found: iOS app requires double pressing the button to finish the registration.
+        //The iOS test will fail because the registration does not work with a single press of the button
     }
 
 }
