@@ -66,4 +66,5 @@ public class WebTests extends BaseTest {
         System.out.println("Google search test on " + platform + " for query " +  "\"" + testData.getQuery() + "\""+" completed");
     }
 
+
 }

@@ -33,4 +33,5 @@ public class NativeTests extends BaseTest {
         System.out.println("EPAM App test completed");
     }
 
+
 }
