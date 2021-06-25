@@ -1,0 +1,30 @@
+[
+    {
+        "id": "e0469171-eb7f-4e72-b9ab-f262011c2b26",
+        "name": "02b1661f-7f3e-40b8-be89-a5ca55d8e70e.apk",
+        "realName": "epamAppPostman.apk",
+        "bid": "0",
+        "private": true,
+        "uploadedBy": "evgenii_liashenko@epam.com",
+        "verified": true,
+        "contentType": "application/zip",
+        "contentLength": 2110845,
+        "href": "0-space/02b1661f-7f3e-40b8-be89-a5ca55d8e70e.apk",
+        "checksum": "",
+        "alias": ""
+    },
+    {
+        "id": "674017fe-53be-44ba-9701-58f687fe839d",
+        "name": "aa87b20c-11b7-40bf-b9bc-81ccb321e225.ipa",
+        "realName": "EPAMTestApp1Postman.ipa",
+        "bid": "0",
+        "private": true,
+        "uploadedBy": "evgenii_liashenko@epam.com",
+        "verified": true,
+        "contentType": "application/zip",
+        "contentLength": 446424,
+        "href": "0-space/aa87b20c-11b7-40bf-b9bc-81ccb321e225.ipa",
+        "checksum": "",
+        "alias": ""
+    }
+]

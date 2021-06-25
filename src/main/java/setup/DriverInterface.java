@@ -3,7 +3,7 @@ package setup;
 import io.appium.java_client.MobileDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-public interface IDriver {
+public interface DriverInterface {
 
     MobileDriver getDriver();
 
