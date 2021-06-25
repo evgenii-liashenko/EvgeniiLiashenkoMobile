@@ -10,9 +10,8 @@ import java.util.List;
 import static api.MobileCloudApi.*;
 
 public class AppService {
-//TODO make methods non-static
 
-    public static List<App> getAllApps(){
+    public List<App> getAllApps(){
         Response response = mobileCloudRequestBuilder().
                 addPathParameter("v1", "v1")
                 .addPathParameter("spaces", "spaces")
@@ -23,7 +22,8 @@ public class AppService {
         return makeAppObjects(response);
     }
 
-    public static String uploadApp(String filePath){
+    public String uploadApp(String filePath){
+        System.out.println("Uploading application to the cloud");
         Response response = mobileCloudRequestBuilder().
                 setMethod(Method.POST)
                 .addPathParameter("v1", "v1")
@@ -37,7 +37,8 @@ public class AppService {
     }
 
 
-    public static void deleteAppFromCloud(String appId){
+    public void deleteAppFromCloud(String appId){
+        System.out.println("Deleting application from the cloud");
         Response response = mobileCloudRequestBuilder().
                 setMethod(Method.DELETE).
                 addPathParameter("v1", "v1")
@@ -49,7 +50,8 @@ public class AppService {
                 .sendRequest();
     }
 
-    public static void installApp(String appId, String deviceSerial){
+    public void installApp(String appId, String deviceSerial){
+        System.out.println("Installing application on the device");
         Response response = mobileCloudRequestBuilder().
                 addPathParameter("storage", "storage")
                 .addPathParameter("install", "install")

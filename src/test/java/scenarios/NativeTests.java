@@ -1,5 +1,6 @@
 package scenarios;
 
+
 import org.testng.annotations.Test;
 import pageobjects.epamapp.EpamApp;
 import utils.DataProviders;
@@ -10,6 +11,7 @@ import static org.hamcrest.Matchers.*;
 
 
 public class NativeTests extends BaseTest {
+
 
     @Test(groups = {"native"}, description = "This simple test just click on the Sign In button", enabled = false)
     public void simpleNativeTest() throws IllegalAccessException, NoSuchFieldException, InstantiationException {

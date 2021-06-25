@@ -4,6 +4,7 @@ import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.*;
 import pageobjects.PageObject;
+import services.AppService;
 import setup.DriverInterface;
 import setup.PageObjectInterface;
 
@@ -13,6 +14,9 @@ import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 public class BaseTest implements DriverInterface {
+
+    private AppService appService = new AppService();
+    private String generatedAppId;
 
     private static AppiumDriver appiumDriver; // singleton
     PageObjectInterface pageObject;
@@ -37,12 +41,32 @@ public class BaseTest implements DriverInterface {
                       @Optional("") String appActivity,
                       @Optional("") String bundleId) throws Exception {
         System.out.println("Before: app type - " + appType);
+
+        //Uploading the test application to the cloud and installing it on the device
+        if (appType.equals("native")) {
+            switch (platformName) {
+                case "Android":
+                    generatedAppId = uploadAndInstall("src/main/resources/EPAMTestApp.apk", udid);
+                    break;
+                case "iOS":
+                    generatedAppId = uploadAndInstall("src/main/resources/EPAMTestApp1.ipa", udid);
+                    break;
+                default: {
+                    generatedAppId = "";
+                    System.out.println("Cannot upload and install application on " + platformName);
+                    break;
+                }
+            }
+        }
+
+        //This launches the app on the device
         setAppiumDriver(platformName, deviceName, udid, browserName, app, appPackage, appActivity, bundleId);
         setPageObject(appType, appiumDriver);
     }
 
     @AfterSuite(alwaysRun = true)
     public void teardown() throws Exception {
+        if (generatedAppId != null) appService.deleteAppFromCloud(generatedAppId);
         System.out.println("After");
         appiumDriver.closeApp();
     }
@@ -84,5 +108,12 @@ public class BaseTest implements DriverInterface {
         System.out.println("Setting page object");
         pageObject = new PageObject(appType, appiumDriver);
     }
+
+    private String uploadAndInstall(String filePath, String udid) {
+        String generatedId = appService.uploadApp(filePath);
+        appService.installApp(generatedId, udid);
+        return generatedId;
+    }
+
 
 }
