@@ -29,7 +29,7 @@ public class DataProviders {
     @DataProvider
     public static Object[][] googleDataProvider() {
         GoogleTestDataSet googleTestDataSet1 = new GoogleTestDataSet();
-        googleTestDataSet1.setQuery("EPAM");
+        googleTestDataSet1.setQuery(PropertyReader.getTestProperties().getProperty("query"));
         return new Object[][]{{googleTestDataSet1}};
     }
 

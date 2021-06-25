@@ -3,12 +3,14 @@ package scenarios;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import pageobjects.google.GoogleMobileWebsite;
 import utils.DataProviders;
 import utils.GoogleTestDataSet;
+import utils.PropertyReader;
 
 import java.time.Duration;
 
@@ -62,9 +64,20 @@ public class WebTests extends BaseTest {
                 wd -> ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
 
         //Checking that the search has returned results
-        assertThat("No search results are obtained", googleSite.resultsPage.searchResults.size(), is(not(0)));
-        System.out.println("Google search test on " + platform + " for query " +  "\"" + testData.getQuery() + "\""+" completed");
-    }
+        assertThat("No search results are obtained", googleSite.resultsPage.searchResults.size(), is(greaterThan(0)));
 
+        //Checking that the search contains relevant results
+        boolean containsRelevantResult = false;
+        String expectedUrl = PropertyReader.getTestProperties().getProperty("expected_url");
+        for (WebElement foundUrl : googleSite.resultsPage.foundUrls) {
+            if (foundUrl.getText().equals(expectedUrl)) {
+                containsRelevantResult = true;
+                break;
+            }
+        }
+        assertThat(expectedUrl + " was not found in the search results", containsRelevantResult, is(true));
+
+        System.out.println("Google search test on " + platform + " for query " + "\"" + testData.getQuery() + "\"" + " completed");
+    }
 
 }

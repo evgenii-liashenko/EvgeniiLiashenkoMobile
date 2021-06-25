@@ -18,5 +18,6 @@ public class GoogleMobileResultsPage {
     @FindBy(css = "#center_col>#topstuff+div>#rso>div[data-hveid]")
     public List<WebElement> searchResults;
 
-
+    @FindBy(css = "#center_col>#topstuff+div>#rso>div[data-hveid]>div>div>div>div>a>div>span")
+    public List<WebElement> foundUrls;
 }
